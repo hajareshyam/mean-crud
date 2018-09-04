@@ -1,0 +1,65 @@
+<table id="mytable" class="table table-bordred table-striped">
+                   
+  <thead> 
+    <th><input type="checkbox" id="checkall" /></th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td><input type="checkbox" class="checkthis" /></td>
+      <td>{{user.email}}</td>
+      <td>{{user.password}}</td>
+      <td><button (click)="onEdit(user)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRegisterForm">Edit</button></td>
+      <td><button (click)="deleteUser(user._id)" type="button" class="btn btn-primary">Delete</button></td>
+      
+
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="selectedUser" id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <td>{{selectedUser.email}}</td>
+        <td>{{selectedUser.password}}</td>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="selectedUser"  class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Update</h4>
+              <button type="button" #close id="close" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                  <i class="fa fa-envelope prefix grey-text"></i>
+                  <input type="email" id="orangeForm-email" class="form-control validate" [(ngModel)]="selectedUser.email">
+                  <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+              </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+              <button (click)="onUpdate(selectedUser)" class="btn btn-primary">Update</button>
+          </div>
+      </div>
+  </div>
+</div>
